@@ -5,6 +5,10 @@ const Person = require('./models/person.js')
 app.use(express.static('dist'))
 app.use(express.json())
 
+let persons = [
+
+]
+
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(person => {
     response.json(person)
@@ -31,12 +35,6 @@ app.delete('/api/persons/:id', (request, response) => {
   response.status(204).end()
 })
 
-const generateId = () => {
-  const maxId = persons.length > 0
-    ? Math.max(...persons.map(n => Number(n.id)))
-    : 0
-  return String(maxId + 1)
-}
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
@@ -50,7 +48,6 @@ app.post('/api/persons', (request, response) => {
   const person = new Person ({
     name: body.name,
     number: body.number,
-    id: generateId(),
   })
   
   person.save().then(savedPerson => {
