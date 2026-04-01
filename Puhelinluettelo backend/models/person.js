@@ -12,7 +12,6 @@ mongoose.connect(url, { family: 4 })
   })
 
 const noteSchema = new mongoose.Schema({
-  id: Number,
   name: String,
   number: String,
 })
