@@ -5,7 +5,11 @@ const Person = require('./models/person.js')
 app.use(express.static('dist'))
 app.use(express.json())
 
-app.get('/api/people', (request, response) => {
+let persons = [
+
+]
+
+app.get('/api/persons', (request, response) => {
   Person.find({}).then(person => {
     response.json(person)
   })
@@ -38,7 +42,7 @@ const generateId = () => {
   return String(maxId + 1)
 }
 
-app.post('/api/people', (request, response) => {
+app.post('/api/persons', (request, response) => {
   const body = request.body
   
   if (!body.name || !body.number) {
