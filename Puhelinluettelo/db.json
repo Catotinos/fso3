@@ -1,0 +1,30 @@
+{
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": "Arto Hellas"
+    },
+    {
+      "name": "Mary Poppendieck",
+      "number": "39-23-6423122",
+      "id": "Mary Poppendieck"
+    },
+    {
+      "id": "Janne koskela",
+      "name": "Janne koskela",
+      "number": "040-1550532"
+    },
+    {
+      "id": "Ville Kumpumäki",
+      "name": "Ville Kumpumäki",
+      "number": "040-4627625"
+    },
+    {
+      "id": "Toivo Paasanen",
+      "name": "Toivo Paasanen",
+      "number": "040-6742546"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
