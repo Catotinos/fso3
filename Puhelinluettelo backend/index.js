@@ -5,10 +5,6 @@ const Person = require('./models/person.js')
 app.use(express.static('dist'))
 app.use(express.json())
 
-let persons = [
-
-]
-
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(person => {
     response.json(person)
