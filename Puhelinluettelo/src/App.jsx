@@ -22,14 +22,14 @@ const App = () => {
   } 
   useEffect(hook, [update])
 
-  const Deletetion = (name) =>{
-    if(window.confirm("Delete " + name + " ?")){
+  const Deletetion = (id, person) =>{
+    if(window.confirm("Delete " + id + " ?")){
       serverdata
-      .deleteperson(name)
+      .deleteperson(id)
       setUpdate(true)
       console.log(update)
       setErrorMessage(
-          `${name} was deleted`
+          `${person} was deleted`
       )
       setErrorColour(
           `green`
@@ -50,10 +50,10 @@ const App = () => {
       if(persons[i].name.toLowerCase() == newName.toLowerCase() ){
         if(window.confirm(name + " is already added to phonebook, replace the old number with a new one?")){
           serverdata
-            .update(newName, person)
+            .update(persons[i].id, person)
             .catch(error => {
               setErrorMessage(
-                 `${newName} has already been deleted from server`
+                 `${persons[i].name} was not found`
               )
               setErrorColour(
                 `red`
@@ -74,10 +74,23 @@ const App = () => {
     serverdata
       .create(person)
       .then(response => {
-      setPersons(persons.concat(response))
-      setNewName("")
-      setNewNumber("")
-    })
+        setPersons(persons.concat(response))
+        setNewName("")
+        setNewNumber("")
+      })
+      .catch(error => {
+        console.log(error.response.data)
+        setErrorMessage(
+          error.response.data.error
+          )
+        setErrorColour(
+          `red`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)   
+      
+      })
     setErrorMessage(
           `${person.name} was added`
       )
@@ -115,7 +128,7 @@ const App = () => {
       <div>
         <ul>
           {namesToShow.map(person => 
-            <Show key={person.name} number={person.number} name={person.name} onClick={() => Deletetion(person.name)}/>
+            <Show key={person.name} number={person.number} name={person.name} onClick={() => Deletetion(person.id, person.name)}/>
           )}
         </ul>
       </div>
