@@ -20,11 +20,10 @@ app.get('/api/persons', (request, response) => {
 app.get('/info', (request, response) => {
   Person.find({}).then(person => {
     let length = person.length
-    response.write('<p>Phonebook has info for' + " " + length + ' people' + '</p>')
+    response.write('<p>Phonebook has info for' + ' ' + length + ' people' + '</p>')
     response.write('<p>'+ d +'</p>')
     response.send()
   })
-  
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
@@ -35,10 +34,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 
 app.delete('/api/persons/:id', (request, response, next) => {
-  Person.findByIdAndDelete(request.params.id)
-      .then(result => {
-        response.status(204).end()
-      }).catch(error => next(error))
+  Person.findByIdAndDelete(request.params.id).then(result => {response.status(204).end()}).catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -51,7 +47,6 @@ app.put('/api/persons/:id', (request, response, next) => {
       }
 
       person.number = number
-      
 
       return person.save().then((updatedPerson) => {
         response.json(updatedPerson)
@@ -63,8 +58,8 @@ app.put('/api/persons/:id', (request, response, next) => {
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
   if (!body.name || !body.number) {
-    return response.status(400).json({ 
-      error: 'name or number missing' 
+    return response.status(400).json({
+      error: 'name or number missing'
     })
   }
 
@@ -72,14 +67,10 @@ app.post('/api/persons', (request, response, next) => {
     name: body.name,
     number: body.number,
   })
-  Person.find({})
-  .then(person => {
-    personslength = person.length
-  })
+
   person.save().then(savedPerson => {
     response.json(savedPerson)
-  })
-  .catch(error => next(error))
+  }).catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
